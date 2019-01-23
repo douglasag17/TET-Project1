@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy
 
-const User = require('../models/user')
+const User = require('../models/User')
 
 module.exports = function (passport) {
   // required for persistent login sessions
