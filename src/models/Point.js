@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const PointSchema = new Schema({
-  title: {
+  latitude: {
     type: String,
     required: true
   },
-  description: {
+  longitude: {
     type: String,
     required: true
   },

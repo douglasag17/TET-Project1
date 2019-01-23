@@ -13,22 +13,22 @@ router.get('/points/add', isAuthenticated, (req, res) => {
 })
 
 router.post('/points/new-point', isAuthenticated, async (req, res) => {
-  const { title, description } = req.body
+  const { latitude, longitude } = req.body
   const errors = []
-  if (!title) {
-    errors.push({text: 'Please Write a Title.'})
+  if (!latitude) {
+    errors.push({text: 'Please Write a latitude.'})
   }
-  if (!description) {
-    errors.push({text: 'Please Write a Description'})
+  if (!longitude) {
+    errors.push({text: 'Please Write a longitude'})
   }
   if (errors.length > 0) {
     res.render('points/new-point', {
       errors,
-      title,
-      description
+      latitude,
+      longitude
     })
   } else {
-    const newPoint = new Point({title, description})
+    const newPoint = new Point({latitude, longitude})
     newPoint.user = req.user.id
     await newPoint.save()
     req.flash('success_msg', 'Point Added Successfully')
@@ -53,8 +53,8 @@ router.get('/points/edit/:id', isAuthenticated, async (req, res) => {
 })
 
 router.put('/points/edit-point/:id', isAuthenticated, async (req, res) => {
-  const { title, description } = req.body
-  await Point.findByIdAndUpdate(req.params.id, {title, description})
+  const { latitude, longitude } = req.body
+  await Point.findByIdAndUpdate(req.params.id, {latitude, longitude})
   req.flash('success_msg', 'Point Updated Successfully')
   res.redirect('/points')
 })
