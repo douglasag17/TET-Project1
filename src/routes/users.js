@@ -1,43 +1,55 @@
-module.exports = (app, passport) => {
+const router = require('express').Router()
+const passport = require('passport')
 
-	// index routes
-	app.get('/', (req, res) => {
-		res.render('index')
-	})
+// Models
+const User = require('../models/User')
 
-	app.get('/about', (req, res) => {
-		res.render('about')
-	})
+router.get('/users/signup', (req, res) => {
+  res.render('users/signup')
+})
 
-	//login view
-	app.get('/login', (req, res) => {
-		res.render('users/login.ejs', {
-			message: req.flash('loginMessage')
-		})
-	})
+router.post('/users/signup', async (req, res) => {
+  let errors = []
+  const { name, email, password, confirm_password } = req.body
+  if(password != confirm_password) {
+    errors.push({text: 'Passwords do not match.'})
+  }
+  if(password.length < 4) {
+    errors.push({text: 'Passwords must be at least 4 characters.'})
+  }
+  if(errors.length > 0){
+    res.render('users/signup', {errors, name, email, password, confirm_password})
+  } else {
+    // Look for email coincidence
+    const emailUser = await User.findOne({email: email})
+    if(emailUser) {
+      req.flash('error_msg', 'The Email is already in use.')
+      res.redirect('/users/signup')
+    } else {
+      // Saving a New User
+      const newUser = new User({name, email, password})
+      newUser.password = await newUser.encryptPassword(password)
+      await newUser.save()
+      req.flash('success_msg', 'You are registered.')
+      res.redirect('/users/signin')
+    }
+  }
+})
 
-	app.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/maps',
-		failureRedirect: '/login',
-		failureFlash: true
-	}))
+router.get('/users/signin', (req, res) => {
+  res.render('users/signin')
+})
 
-	// signup view
-	app.get('/signup', (req, res) => {
-		res.render('users/signup', {
-			message: req.flash('signupMessage')
-		})
-	})
+router.post('/users/signin', passport.authenticate('local', {
+  successRedirect: '/points',
+  failureRedirect: '/users/signin',
+  failureFlash: true
+}))
 
-	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect: '/maps', //si es exitoso lo redirige a maps
-		failureRedirect: '/signup', //si falla lo redirige a sign up
-		failureFlash: true // allow flash messages
-	}))
+router.get('/users/logout', (req, res) => {
+  req.logout()
+  req.flash('success_msg', 'You are logged out now.')
+  res.redirect('/users/signin')
+})
 
-	// logout
-	app.get('/logout', (req, res) => {
-		req.logout()
-		res.redirect('/')
-	})
-}
+module.exports = router
