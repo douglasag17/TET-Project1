@@ -6,10 +6,10 @@
     <div class="card-body">
       <form action="/points/new-point" method="POST">
         <div class="form-group">
-          <input type="number" name="latitude" class="form-control" placeholder="Latitude" autofocus step="any" />
+          <input type="text" name="latitude" class="form-control" placeholder="Latitude" autofocus step="any" id="lat"/>
         </div>
         <div class="form-group">
-          <input type="number" name="longitude" class="form-control" placeholder="Longitude" autofocus step="any" />
+          <input type="text" name="longitude" class="form-control" placeholder="Longitude" autofocus step="any" id="lng"/>
         </div>
         <div class="pure-form">
           <fieldset>
@@ -17,7 +17,7 @@
               type="button"
               name="btnLocation"
               class="btn btn-primary btn-block"
-              value="Get Location">
+              value="Get Current Location">
           </fieldset>
         </div>
         <div class="form-group mt-3">
@@ -30,11 +30,58 @@
   </div>
 </div>
 
-<!--  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  -->
-
+<!-- Get current Location -->
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-
 <script src="/main.js"></script>
+
+
+<!-- Display Map -->
+
+<div id="map"></div>
+
+<script> function initMap(){
+    
+    // In the following example, markers appear when the user clicks on the map.
+    // Each marker is labeled with a single alphabetical character.
+
+    function initialize() {
+      var eafitLocation = { lat: 6.201700799999999, lng: -75.57816179999999 };
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: eafitLocation
+      });
+
+      // Add a marker at the center of the map.
+      addMarker(eafitLocation, map);
+    }
+
+    // Adds a marker to the map.
+    function addMarker(location, map) {
+      // Add the marker at the clicked location, and add the next-available label
+      // from the array of alphabetical characters.
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        draggable:true
+      });
+      google.maps.event.addListener(marker,'dragend',function(event) {
+        var latitude = marker.getPosition().toString()
+        latitude = latitude.split(',',1).toString()
+        latitude = latitude.substring(1)
+
+        var longitude = marker.getPosition().toString()
+        var pos = longitude.indexOf(',')
+        longitude = longitude.substring(pos+2).split(')',1).toString()
+
+        document.getElementById("lat").value = latitude
+        document.getElementById("lng").value = longitude
+      });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);  
+  } 
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfvcsagRYKp9CgzE3Uq2FRJLk-YnTvZI&callback=initMap"> </script>

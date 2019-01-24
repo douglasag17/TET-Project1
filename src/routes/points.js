@@ -66,4 +66,9 @@ router.delete('/points/delete/:id', isAuthenticated, async (req, res) => {
   res.redirect('/points')
 })
 
+// Get All Routes Shared
+router.get('/routes', isAuthenticated, async (req, res) => {
+  res.render('points/routes',)
+})
+
 module.exports = router
