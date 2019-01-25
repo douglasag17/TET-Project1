@@ -39,5 +39,6 @@ function initMap(){
     }
     google.maps.event.addDomListener(window, 'load', initialize);  
 }
+initMap()
 
 document.body.innerHTML = '<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfvcsagRYKp9CgzE3Uq2FRJLk-YnTvZI&callback=initMap"> </script>'
