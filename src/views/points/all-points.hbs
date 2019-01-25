@@ -1,6 +1,63 @@
+<!-- Display Map -->
+
+<h2 class='vertical'> Route with your points </h2>
+<div id="map"></div>
+<form action="/points/new-route" method="post">
+  <div class="form-group mt-4" style="text-align: center;">
+    <button class="btn btn-primary btn-block" type="submit" style='width:370px; height:45px; display: block; margin: 0 auto; '>
+      Share Route
+    </button>
+  </div>
+</form>
+
+<script> 
+  function initMap(){
+    
+    // In the following example, markers appear when the user clicks on the map.
+    // Each marker is labeled with a single alphabetical character.
+
+    function initialize() {
+      var eafitLocation = { lat: 6.201700799999999, lng: -75.57816179999999 };
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: eafitLocation
+      });
+
+      // Add a marker at the center of the map.
+      
+      //addMarker( { lat: latitude, lng: longitude } , map);
+      addMarker( { lat: 6.204900604782, lng: -75.56972893485715 }, map);
+
+      //var numPoints = points
+      //while (numPoints > 0) {
+      //  markers = [
+      //    {
+      //      {lat:42.4668,lng:-70.9495}
+      //    }
+      //  ]
+      //}
+      //for (var i = 0; markers.lenth; i++) {
+      //  addMarker(markers[i], map)
+      //}
+    }
+
+    // Adds a marker to the map.
+    function addMarker(location, map) {
+      // Add the marker at the clicked location, and add the next-available label
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        draggable:true
+      });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);  
+  } 
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfvcsagRYKp9CgzE3Uq2FRJLk-YnTvZI&callback=initMap"> </script>
+
 <div class="row">
   {{#each points}}
-  <div class="col-md-3">
+  <div class="col-md-3 mt-4 mb-4">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title d-flex justify-content-between align-items-center">
@@ -16,12 +73,13 @@
     </div>
   </div>
   {{else}}
-  <div class="card mx-auto">
-    <div class="card-body">
+  <div class="card mx-auto mt-4 mb-4">
+    <div class="card-body text-center">
       <h1>Hello {{user.name}}</h1>
-      <p clsss="lead">There are not Points yet.</p>
-      <a href="/points/add" class="btn btn-success btn-block">Create One!</a>
+      <h3 clsss="lead">There are not Points yet</h3>
+      <a href="/points/add" class="btn btn-success btn-block">Create One</a>
     </div>
   </div>
   {{/each}}
 </div>
+

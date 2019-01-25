@@ -8,7 +8,7 @@
 {{/each}}
 
 <div class="col-md-4 mx-auto">
-  <div class="card">
+  <div class="card text-center">
     <div class="card-header">
       <h3>Edit Point</h3>
     </div>
@@ -19,7 +19,7 @@
           <input type="text" name="latitude" class="form-control" value="{{point.latitude}}"/>
         </div>
         <div class="form-group">
-          <textarea name="longitude" class="form-control">{{point.longitude}}</textarea>
+          <input type="text" name="longitude" class="form-control" value="{{point.longitude}}"/>
         </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" type="submit">

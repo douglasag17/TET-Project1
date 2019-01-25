@@ -32,7 +32,7 @@ router.post('/points/new-point', isAuthenticated, async (req, res) => {
     newPoint.user = req.user.id
     await newPoint.save()
     req.flash('success_msg', 'Point Added Successfully')
-    res.redirect('/points')
+    res.redirect('/points/add')
   }
 })
 
@@ -69,6 +69,11 @@ router.delete('/points/delete/:id', isAuthenticated, async (req, res) => {
 // Get All Routes Shared
 router.get('/routes', isAuthenticated, async (req, res) => {
   res.render('points/routes',)
+})
+
+router.post('/points/new-route', isAuthenticated, async (req, res) => {
+  req.flash('success_msg', 'Route Shared Successfully')
+  res.redirect('/routes')
 })
 
 module.exports = router
