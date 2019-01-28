@@ -1,5 +1,5 @@
-<!-- Display Map -->
 <h2 class='vertical'> Route with your points </h2>
+<!-- Display Map -->
 <div id="map"></div>
 <form action="/points/new-route" method="post">
   <div class="form-group mt-4" style="text-align: center;">
@@ -11,25 +11,26 @@
 
 <div class="row">
   {{#each points}}
-  <div class="col-md-3 mt-4 mb-4">
+  <div class="col-md-4 mt-4 mb-4">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title d-flex justify-content-between align-items-center">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
          Latitude: {{ latitude }} <a href="/points/edit/{{_id}}"><i class="fas fa-edit"></i></a>
-        </h4>
-        <h4 > Longitude: {{ longitude }}</h4>
+        </h5>
+        <h5> Longitude: {{ longitude }}</h5>
+        <h5>Date: {{ date }} </h5>
         
         <!-- DELETE REQUEST -->
         <form action="/points/delete/{{_id}}?_method=DELETE" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger btn-block btn-sm">Delete</button>
         </form>
-        
+
         <!--- Java Scripts for Map  --->
         <script>
-          //console.log( {{numPoints}} )
           var arrLat = []
           var arrLng = []
+          //var number = {{numPoints}}
           for (i=0; i < 3; i++) {
             arrLat[i] = {{latitude}}
           }
@@ -42,20 +43,20 @@
           //arrLng.forEach(function(element){
           //  console.log(element)
           //})
-          //console.log(arrLat.length)
+          //console.log(arrLat.length;
           
           var map;
           function initMap() {    
-            arrLat.forEach(function(element){
-              console.log(element)
-            })
-            arrLng.forEach(function(element){
-              console.log(element)
-            })
+            //arrLat.forEach(function(element){
+            //  console.log(element)
+            //})
+            //arrLng.forEach(function(element){
+            //  console.log(element)
+            //})
             var posMap = {lat: arrLat[0], lng: arrLng[0]};
             map = new google.maps.Map(document.getElementById('map'), {
                 center: posMap,
-                zoom: 16,
+                zoom: 15
             });
             // Adds a marker to the map.
             function addMarker(location, map) {
@@ -69,9 +70,9 @@
             for (var i = 0; i < arrLat.length; i++) {
               addMarker( {lat: arrLat[i], lng: arrLng[i]} , map)
             }
-            console.log(arrLat.length)
-          } 
-        </script>
+            //console.log(arrLat.length)
+          }
+        </script> 
       </div>
     </div>
   </div>
@@ -85,5 +86,63 @@
   </div>
   {{/each}}
 </div>
+
+<!--- Java Scripts for Map  
+{{#each points}}
+<script> 
+  function initMap(){
+    // Map options
+    var options = {
+      zoom: 15,
+      center: {lat:6.201999400000001, lng:-75.56841399999999}
+    }
+
+    var script = document.createElement('script');
+    script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+    //document.getElementsByTagName('head')[0].appendChild(script);
+    //window.eqfeed_callback = function(results) {
+    //  for (var i = 0; i < results.features.length; i++) {
+    //    var coords = results.features[i].geometry.coordinates;
+    //    var latLng = new google.maps.LatLng(coords[1],coords[0]);
+    //    var marker = new google.maps.Marker({
+    //      position: latLng,
+    //      map: map
+    //    });
+    //  }
+    //}
+
+    // New map
+    var map = new google.maps.Map(document.getElementById('map'), options);
+
+    // Array of markers
+    var markers = [
+      {
+        coords:{lat:6.201999400000001, lng:-75.56841399999999},
+      },
+      {
+        coords:{lat:6.2022127208022395, lng:-75.56023862692257},
+      },
+      {
+        coords:{lat:6.202959342930375, lng:-75.57341363760372}
+      }
+    ];
+
+    // Loop through markers
+    for(var i = 0;i < markers.length;i++){
+      // Add marker
+      addMarker(markers[i]);
+    }
+
+    // Add Marker Function
+    function addMarker(props){
+      var marker = new google.maps.Marker({
+        position:props.coords,
+        map:map,
+        draggable: true
+      });
+    }
+  }
+</script>
+{{/each}} --->
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfvcsagRYKp9CgzE3Uq2FRJLk-YnTvZI&callback=initMap"> </script>

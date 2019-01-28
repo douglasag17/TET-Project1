@@ -22,11 +22,7 @@ router.post('/points/new-point', isAuthenticated, async (req, res) => {
     errors.push({text: 'Please Write a longitude'})
   }
   if (errors.length > 0) {
-    res.render('points/new-point', {
-      errors,
-      latitude,
-      longitude
-    })
+    res.render('points/new-point', { errors, latitude, longitude })
   } else {
     const newPoint = new Point({latitude, longitude})
     newPoint.user = req.user.id
@@ -39,14 +35,15 @@ router.post('/points/new-point', isAuthenticated, async (req, res) => {
 // Get All Points
 router.get('/points', isAuthenticated, async (req, res) => {
   const points = await Point.find({user: req.user.id}).sort({date: 'desc'})
+  var numPoints = await Point.find({user: req.user.id}).countDocuments()
+  console.log(numPoints)
+  
+  var objeto = points
+  //objeto.forEach(function(element){
+  //  console.log(element)
+  //})
 
-  const numPoints = await Point.count({user:"5c48bab55239841f92cea641"}).then(function(result){
-    console.log(result)
-   }, function(err){
-     return console.log(err);
-   });
-
-   res.render('points/all-points', { points, numPoints } )
+  res.render('points/all-points', { points, numPoints })
 })
 
 // Edit Points
