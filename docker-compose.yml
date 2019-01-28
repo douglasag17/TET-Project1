@@ -1,7 +1,7 @@
 version: "2"
 services:
   nginx:
-    container_name: nginx-server
+    container_name: nginx-server-dou
     image: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
