@@ -10,7 +10,7 @@ services:
     depends_on:
       - nodeapp
   nodeapp:
-    container_name: nodeapp
+    container_name: nodeapp-dou
     restart: always
     build: .
     ports:
