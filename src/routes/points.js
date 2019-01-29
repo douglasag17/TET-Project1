@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 // Models
-const Point = require('../models/Point')
+let Point = require('../models/Point')
 
 // Helpers
 const { isAuthenticated } = require('../helpers/auth')
@@ -36,14 +36,7 @@ router.post('/points/new-point', isAuthenticated, async (req, res) => {
 router.get('/points', isAuthenticated, async (req, res) => {
   const points = await Point.find({user: req.user.id}).sort({date: 'desc'})
   var numPoints = await Point.find({user: req.user.id}).countDocuments()
-  console.log(numPoints)
-  
-  var objeto = points
-  //objeto.forEach(function(element){
-  //  console.log(element)
-  //})
-
-  res.render('points/all-points', { points, numPoints })
+  res.render('points/all-points', { points, numPoints})
 })
 
 // Edit Points

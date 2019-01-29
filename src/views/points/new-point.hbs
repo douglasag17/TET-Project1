@@ -37,6 +37,8 @@
   crossorigin="anonymous"></script>
 <script src="/main.js"></script>
 
+<h4>Move the pin to select a point</h4>
+
 <!-- Display Map -->
 <div id="map"></div>
 
@@ -53,7 +55,7 @@
           var posMap = {lat: latitude, lng: longitude};
           map = new google.maps.Map(document.getElementById('map'), {
               center: posMap,
-              zoom: 16
+              zoom: 15
           });
       var marker = new google.maps.Marker({
         position: posMap, 

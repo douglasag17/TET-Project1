@@ -7,7 +7,7 @@ LABEL maintainer="Douglas Ardila Garces - dardila5@eafit.edu.co"
 ARG PORT=3000
 ENV PORT $PORT
 
-WORKDIR /project1GPS
+WORKDIR /TET-Project1
 
 COPY package*.json ./
 

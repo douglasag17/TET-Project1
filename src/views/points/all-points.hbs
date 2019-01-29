@@ -1,6 +1,8 @@
 <h2 class='vertical'> Route with your points </h2>
+{{#if points}}
 <!-- Display Map -->
 <div id="map"></div>
+
 <form action="/points/new-route" method="post">
   <div class="form-group mt-4" style="text-align: center;">
     <button class="btn btn-primary btn-block" type="submit" style='width:370px; height:45px; display: block; margin: 0 auto; '>
@@ -25,58 +27,52 @@
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger btn-block btn-sm">Delete</button>
         </form>
-
-        <!--- Java Scripts for Map  --->
-        <script>
-          var arrLat = []
-          var arrLng = []
-          //var number = {{numPoints}}
-          for (i=0; i < 3; i++) {
-            arrLat[i] = {{latitude}}
-          }
-          for (i=0; i < 3; i++) {
-            arrLng[i] = {{longitude}}
-          }
-          //arrLat.forEach(function(element){
-          //  console.log(element)
-          //})
-          //arrLng.forEach(function(element){
-          //  console.log(element)
-          //})
-          //console.log(arrLat.length;
-          
-          var map;
-          function initMap() {    
-            //arrLat.forEach(function(element){
-            //  console.log(element)
-            //})
-            //arrLng.forEach(function(element){
-            //  console.log(element)
-            //})
-            var posMap = {lat: arrLat[0], lng: arrLng[0]};
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: posMap,
-                zoom: 15
-            });
-            // Adds a marker to the map.
-            function addMarker(location, map) {
-              // Add the marker at the clicked location, and add the next-available label
-              var marker = new google.maps.Marker({
-                position: location,
-                map: map,
-                draggable: true
-              });
-            }
-            for (var i = 0; i < arrLat.length; i++) {
-              addMarker( {lat: arrLat[i], lng: arrLng[i]} , map)
-            }
-            //console.log(arrLat.length)
-          }
-        </script> 
       </div>
     </div>
   </div>
-  {{else}}
+  {{/each}}
+</div>
+
+<!--- Java Scripts for Display points in the Map  -->
+<script>
+  var puntos1 = new Array
+</script>
+{{#each points}}
+  <script>
+    puntos1.push( {{latitude}} )
+    puntos1.push( {{longitude}} )
+  </script>
+{{/each}}
+<script>
+  //puntos1.forEach(function(element){
+  //  console.log(element)
+  //})
+  //console.log(puntos1.length)
+  var map;
+  function initMap() {  
+    var posMap = {lat: puntos1[0], lng: puntos1[1]};
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: posMap,
+        zoom: 15
+    });
+    // Adds a marker to the map.
+    function addMarker(location, map) {
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+    }
+    for (var i = 0; i < puntos1.length-1; i++) {
+      addMarker( {lat: puntos1[i], lng: puntos1[i+1]} , map)
+    }
+  }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfvcsagRYKp9CgzE3Uq2FRJLk-YnTvZI&callback=initMap"> </script>
+
+
+
+{{else}}
   <div class="card mx-auto mt-4 mb-4">
     <div class="card-body text-center">
       <h1>Hello {{user.name}}</h1>
@@ -84,65 +80,4 @@
       <a href="/points/add" class="btn btn-success btn-block">Create One</a>
     </div>
   </div>
-  {{/each}}
-</div>
-
-<!--- Java Scripts for Map  
-{{#each points}}
-<script> 
-  function initMap(){
-    // Map options
-    var options = {
-      zoom: 15,
-      center: {lat:6.201999400000001, lng:-75.56841399999999}
-    }
-
-    var script = document.createElement('script');
-    script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-    //document.getElementsByTagName('head')[0].appendChild(script);
-    //window.eqfeed_callback = function(results) {
-    //  for (var i = 0; i < results.features.length; i++) {
-    //    var coords = results.features[i].geometry.coordinates;
-    //    var latLng = new google.maps.LatLng(coords[1],coords[0]);
-    //    var marker = new google.maps.Marker({
-    //      position: latLng,
-    //      map: map
-    //    });
-    //  }
-    //}
-
-    // New map
-    var map = new google.maps.Map(document.getElementById('map'), options);
-
-    // Array of markers
-    var markers = [
-      {
-        coords:{lat:6.201999400000001, lng:-75.56841399999999},
-      },
-      {
-        coords:{lat:6.2022127208022395, lng:-75.56023862692257},
-      },
-      {
-        coords:{lat:6.202959342930375, lng:-75.57341363760372}
-      }
-    ];
-
-    // Loop through markers
-    for(var i = 0;i < markers.length;i++){
-      // Add marker
-      addMarker(markers[i]);
-    }
-
-    // Add Marker Function
-    function addMarker(props){
-      var marker = new google.maps.Marker({
-        position:props.coords,
-        map:map,
-        draggable: true
-      });
-    }
-  }
-</script>
-{{/each}} --->
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfvcsagRYKp9CgzE3Uq2FRJLk-YnTvZI&callback=initMap"> </script>
+{{/if}}
