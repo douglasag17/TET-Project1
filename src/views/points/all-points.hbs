@@ -1,5 +1,6 @@
 <h2 class='vertical'> Route with your points </h2>
 {{#if points}}
+
   <!-- Display Map -->
   <div id="map"></div>
 
@@ -10,17 +11,29 @@
       </button>
     </div>
   </form>
-
+  
   <div class="row">
     {{#each points}}
       <div class="col-md-4 mt-4 mb-4">
         <div class="card">
           <div class="card-body">
+            <script>
+              var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+              var labelIndex = 0;
+              var summaryPanel = document.getElementById('title');
+              summaryPanel.innerHTML = 'Marker: ';
+              for (var i = 0; i < 1; i++) {
+                summaryPanel.innerHTML += labels[labelIndex++ % labels.length]
+                labelIndex++
+              }
+            </script>
+            <h5 id="title" >  </h5>
             <h5 class="card-title d-flex justify-content-between align-items-center">
             Latitude: {{ latitude }} <a href="/points/edit/{{_id}}"><i class="fas fa-edit"></i></a>
             </h5>
             <h5> Longitude: {{ longitude }}</h5>
             <h5>Date: {{ date }} </h5>
+            <h5>User: {{ user }} </h5>
             
             <!-- DELETE REQUEST -->
             <form action="/points/delete/{{_id}}?_method=DELETE" method="POST">
