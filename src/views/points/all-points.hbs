@@ -6,7 +6,7 @@
 
   <form action="/points/new-route" method="post">
     <div class="form-group mt-4" style="text-align: center;">
-      <button class="btn btn-primary btn-block" type="submit" style='width:370px; height:45px; display: block; margin: 0 auto; '>
+      <button id="arrRoute" name="route" class="btn btn-primary btn-block" type="submit" style='width:370px; height:45px; display: block; margin: 0 auto; '>
         Share Route
       </button>
     </div>
@@ -18,14 +18,8 @@
         <div class="card">
           <div class="card-body">
             <script>
-              var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-              var labelIndex = 0;
               var summaryPanel = document.getElementById('title');
-              summaryPanel.innerHTML = 'Marker: ';
-              for (var i = 0; i < 1; i++) {
-                summaryPanel.innerHTML += labels[labelIndex++ % labels.length]
-                labelIndex++
-              }
+              summaryPanel.innerHTML = 'Marker: ' + 'A';
             </script>
             <h5 id="title" >  </h5>
             <h5 class="card-title d-flex justify-content-between align-items-center">
@@ -57,6 +51,7 @@
     </script>
   {{/each}}
   <script>
+    document.getElementById("arrRoute").value = puntos1
     var map
     function initMap() {  
       var posMap = {lat: puntos1[0], lng: puntos1[1]};

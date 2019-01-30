@@ -1,0 +1,30 @@
+<div class="row">
+    {{#each routes}}
+        <div class="col-md-4 mt-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Route: {{ route }}</h5>
+                    <h5>Date: {{ date }} </h5>
+                    
+                    <!-- DELETE REQUEST -->
+                    <form action="/route/delete/{{_id}}?_method=DELETE" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger btn-block btn-sm">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>
+
+<!-- <script>
+    var rutas = new Array
+</script>
+{{#each routes}}
+<script>
+    rutas.push( {{route}} )
+</script>
+{{/each}}
+<script>
+    console.log(rutas)
+</script> -->

@@ -3,6 +3,7 @@ const router = express.Router()
 
 // Models
 let Point = require('../models/Point')
+let Route = require('../models/Route')
 
 // Helpers
 const { isAuthenticated } = require('../helpers/auth')
@@ -63,13 +64,26 @@ router.delete('/points/delete/:id', isAuthenticated, async (req, res) => {
   res.redirect('/points')
 })
 
-// Get All Routes Shared
-router.get('/routes', isAuthenticated, async (req, res) => {
-  res.render('points/routes',)
+// Post a Route to share
+router.post('/points/new-route', isAuthenticated, async (req, res) => {
+  const route = req.body
+  //console.log(route)
+  const newRoute = new Route(route)
+  await newRoute.save()
+  req.flash('success_msg', 'Route Shared Successfully')
+  res.redirect('/routes')
 })
 
-router.post('/points/new-route', isAuthenticated, async (req, res) => {
-  req.flash('success_msg', 'Route Shared Successfully')
+// Get All Routes Shared
+router.get('/routes', isAuthenticated, async (req, res) => {
+  const routes = await Route.find({}).sort({date: 'desc'})
+  res.render('points/routes', {routes})
+})
+
+// Delete Route
+router.delete('/route/delete/:id', isAuthenticated, async (req, res) => {
+  await Route.findByIdAndDelete(req.params.id)
+  req.flash('success_msg', 'Route Deleted Successfully')
   res.redirect('/routes')
 })
 
