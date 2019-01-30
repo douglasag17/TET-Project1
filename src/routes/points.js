@@ -34,7 +34,7 @@ router.post('/points/new-point', isAuthenticated, async (req, res) => {
 
 // Get All Points
 router.get('/points', isAuthenticated, async (req, res) => {
-  const points = await Point.find({user: req.user.id}).sort({date: 'desc'})
+  const points = await Point.find({user: req.user.id}).sort({date: 'asc'})
   var numPoints = await Point.find({user: req.user.id}).countDocuments()
   res.render('points/all-points', { points, numPoints})
 })

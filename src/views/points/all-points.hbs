@@ -52,17 +52,17 @@
           zoom: 15
       });
       // Adds a marker to the map.
-      function addMarker(location, map, title) {
-        var marker = new google.maps.Marker({
-          position: location,
-          map: map,
-          title: title
-        })
-      }
-      for (var i = 0; i < puntos1.length-1; i++) {
-        var title = puntos1[i] + ", " + puntos1[i+1]
-        addMarker( {lat: puntos1[i], lng: puntos1[i+1]} , map, title)
-      }
+      //function addMarker(location, map, title) {
+      //  var marker = new google.maps.Marker({
+      //    position: location,
+      //    map: map,
+      //    title: title
+      //  })
+      //}
+      //for (var i = 0; i < puntos1.length-1; i++) {
+      //  var title = puntos1[i] + ", " + puntos1[i+1]
+      //  addMarker( {lat: puntos1[i], lng: puntos1[i+1]} , map, title)
+      //}
       
       // Routes
       
@@ -96,8 +96,8 @@
         }
 
         directionsService.route({
-          origin: {lat: puntos1[ puntos1.length-2 ], lng: puntos1[ puntos1.length-1 ]} ,
-          destination: {lat: puntos1[0], lng: puntos1[1]} ,
+          origin: {lat: puntos1[0], lng: puntos1[1]},
+          destination: {lat: puntos1[ puntos1.length-2 ], lng: puntos1[ puntos1.length-1 ]},
           waypoints: waypts1,
           optimizeWaypoints: true,
           travelMode: 'WALKING'
