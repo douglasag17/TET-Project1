@@ -44,7 +44,7 @@
     </script>
   {{/each}}
   <script>
-    var map;
+    var map
     function initMap() {  
       var posMap = {lat: puntos1[0], lng: puntos1[1]};
       map = new google.maps.Map(document.getElementById('map'), {
@@ -52,38 +52,54 @@
           zoom: 15
       });
       // Adds a marker to the map.
-      function addMarker(location, map) {
+      function addMarker(location, map, title) {
         var marker = new google.maps.Marker({
           position: location,
-          map: map
-        });
+          map: map,
+          title: title
+        })
       }
-      for (var i = 2; i < puntos1.length-3; i++) {
-        addMarker( {lat: puntos1[i], lng: puntos1[i+1]} , map)
+      for (var i = 0; i < puntos1.length-1; i++) {
+        var title = puntos1[i] + ", " + puntos1[i+1]
+        addMarker( {lat: puntos1[i], lng: puntos1[i+1]} , map, title)
       }
       
       // Routes
       
       // Instantiate a directions service.
       var directionsService = new google.maps.DirectionsService;
-
       // Create a renderer for directions and bind it to the map.
-      var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-
+      var directionsDisplay = new google.maps.DirectionsRenderer({
+        //draggable: true,
+        map: map
+      });
       // Display the route between the initial start and end selections.
       calculateAndDisplayRoute(directionsDisplay, directionsService, puntos1, map);
-
       // Listen to change events from the start and end lists.
       var onChangeHandler = function() {
         calculateAndDisplayRoute(directionsDisplay, directionsService, markerArray, map);
-      }
+      }     
 
       function calculateAndDisplayRoute(directionsDisplay, directionsService, markerArray, map) {
         // Retrieve the start and end locations and create a DirectionsRequest using
         // WALKING directions.
+        var waypts = []
+        for (var i = 2; i < puntos1.length-2; i++) {
+          waypts.push(puntos1[i])
+        }
+        var waypts1 = []
+        for (var i = 0; i < waypts.length; i+=2) {
+          waypts1.push({
+            location: new google.maps.LatLng(waypts[i], waypts[i+1]),
+            stopover: true
+          });
+        }
+
         directionsService.route({
-          origin: {lat: puntos1[0], lng: puntos1[1]} ,
-          destination: {lat: puntos1[ puntos1.length-2 ], lng: puntos1[ puntos1.length-1 ]} ,
+          origin: {lat: puntos1[ puntos1.length-2 ], lng: puntos1[ puntos1.length-1 ]} ,
+          destination: {lat: puntos1[0], lng: puntos1[1]} ,
+          waypoints: waypts1,
+          optimizeWaypoints: true,
           travelMode: 'WALKING'
         }, function(response, status) {
           // Route the directions and pass the response to a function to create
@@ -95,6 +111,7 @@
           }
         });
       }
+
     }
   </script>
 
