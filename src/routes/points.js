@@ -89,4 +89,10 @@ router.delete('/route/delete/:id', isAuthenticated, async (req, res) => {
   res.redirect('/routes')
 })
 
+// Get Map
+router.get('/map/:id', isAuthenticated, async (req, res) => {
+  const routeShared = await Route.findById(req.params.id)
+  res.render('points/maps', {routeShared} )
+})
+
 module.exports = router
