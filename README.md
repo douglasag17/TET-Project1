@@ -20,7 +20,7 @@ Email: dardila5@eafit.edu.co
     Para iniciar la applicacion en el localhost:3000
     
         npm start
-    Para instalar mongo siga esta guia de acuerdo a su sistema operativo
+    Para instalar mongodb siga esta guia de acuerdo a su sistema operativo
     
         https://docs.mongodb.com/manual/installation/
     
@@ -50,6 +50,7 @@ Email: dardila5@eafit.edu.co
         }
 
 4. Servicios Web
+    
 
 5. Despliegue (DCA y nube IaaS de AWS) con docker
     
