@@ -66,9 +66,11 @@ router.delete('/points/delete/:id', isAuthenticated, async (req, res) => {
 
 // Post a Route to share
 router.post('/points/new-route', isAuthenticated, async (req, res) => {
-  const route = req.body
+  const {name, route} = req.body
   //console.log(route)
-  const newRoute = new Route(route)
+  const newRoute = new Route({name, route})
+  console.log(name)
+  console.log(route)
   await newRoute.save()
   req.flash('success_msg', 'Route Shared Successfully')
   res.redirect('/routes')

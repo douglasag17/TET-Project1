@@ -6,9 +6,30 @@
 
   <form action="/points/new-route" method="post">
     <div class="form-group mt-4" style="text-align: center;">
-      <button id="arrRoute" name="route" class="btn btn-primary btn-block" type="submit" style='width:370px; height:45px; display: block; margin: 0 auto; '>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style='width:370px; height:45px; display: block; margin: 0 auto; '>
         Share Route
       </button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="text" name="name" class="form-control" placeholder="Name of the route" autofocus id="nameRoute"/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary" type="submit" id="arrRoute" name="route">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </form>
   
@@ -28,12 +49,17 @@
             <h5> Longitude: {{ longitude }}</h5>
             <h5>Date: {{ date }} </h5>
             <h5>User: {{ user }} </h5>
-            
+            <!-- EDIT REQUEST -->
+            <form action="/points/edit/{{_id}}" method="GET">
+              <input type="hidden" name="_method" value="EDIT">
+              <button type="submit" class="btn btn-primary btn-block btn-sm">Edit</button>
+            </form>
             <!-- DELETE REQUEST -->
             <form action="/points/delete/{{_id}}?_method=DELETE" method="POST">
               <input type="hidden" name="_method" value="DELETE">
-              <button type="submit" class="btn btn-danger btn-block btn-sm">Delete</button>
+              <button type="submit" class="btn btn-danger btn-block btn-sm mt-2">Delete</button>
             </form>
+            
           </div>
         </div>
       </div>
