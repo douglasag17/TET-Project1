@@ -25,6 +25,29 @@ Email: dardila5@eafit.edu.co
         https://docs.mongodb.com/manual/installation/
     
 3. Modelo de datos
+    
+        User:
+        {
+            name: String,
+            email: String,
+            password: String,
+            date: Date
+        }
+
+        Point:
+        {
+            latitude: String,
+            longitude: String,
+            date: Date,
+            user: String
+        }
+
+        Route:
+        {
+            name: String,
+            route: String,
+            date: Date
+        }
 
 4. Servicios Web
 
