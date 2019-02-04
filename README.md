@@ -59,5 +59,5 @@ Email: dardila5@eafit.edu.co
         https://dardila5.dis.eafit.edu.co/
     Nube IaaS de AWS
         
-        http://ec2-18-206-35-89.compute-1.amazonaws.com/
+        https://ec2-18-206-35-89.compute-1.amazonaws.com/ 
         
