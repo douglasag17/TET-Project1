@@ -50,8 +50,92 @@ Email: dardila5@eafit.edu.co
         }
 
 4. Servicios Web
-    
 
+        /* Servicio Web: Menu raiz de la aplicación
+           Método: GET
+           URI: /
+        */
+
+        /* Servicio Web: Informacion adicional sobre la aplicación
+           Método: GET
+           URI: /about
+        */
+
+        /* Servicio Web: Formulario de registro de usuarios
+           Método: GET
+           URI: /users/signup
+        */
+        
+        /* Servicio Web: Almacena y verifica el usuario creado
+           Método: POST
+           URI: /users/signup
+        */
+        
+        /* Servicio Web: Formulario para inicio de sesión de usuarios
+           Método: GET
+           URI: /users/signin
+        */
+        
+        /* Servicio Web: Verifica el usuario ingresado y posteriormente muestra el menu de la aplicacion
+           Método: POST
+           URI: /users/signin
+        */
+        
+        /* Servicio Web: Cierre de sesion
+           Método: GET
+           URI: /users/logout
+        */
+        
+        /* Servicio Web: Vista para agregar un nuevo punto en un mapa
+           Método: GET
+           URI: /points/add
+        */
+        
+        /* Servicio Web: Agregar un nuevo punto
+           Método: POST
+           URI: /points/new-point
+        */
+        
+        /* Servicio Web: Ver todos los puntos agregados
+           Método: GET
+           URI: /points
+        */
+        
+        /* Servicio Web: Editar un punto en especifico
+           Método: GET
+           URI: /points/edit/:id
+        */
+        
+        /* Servicio Web: Actualizar un punto en especifico
+           Método: PUT
+           URI: /points/edit-point/:id
+        */
+        
+        /* Servicio Web: Borrar un punto en especifico
+           Método: DELETE
+           URI: /points/delete/:id
+        */
+        
+        /* Servicio Web: Compartir una ruta en especifico
+           Método: POST
+           URI: /points/new-route
+        */
+        
+        /* Servicio Web: Ver rutas compartidas
+           Método: GET
+           URI: /routes
+        */
+        
+        /* Servicio Web: Borrar una ruta
+           Método: DELETE
+           URI: /route/delete/:id
+        */
+        
+        /* Servicio Web: Mostar mapa con la ruta seleccionada
+           Método: GET
+           URI: '/map/:id
+        */
+        
 5. Despliegue (DCA y nube IaaS de AWS) con docker
     
     DCA
